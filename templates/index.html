@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Calculator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: #fff;
+            background: #000;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0);
+            backdrop-filter: blur(15px);
+            z-index: 1;
+            border: 2px solid rgb(201, 245, 245);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .form-group {
+            background: rgba(255, 255, 255, 0);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-group:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0);
+            transform: translateY(-5px);
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+
+        select, input[type="number"] {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            width: calc(100% - 34px);
+            font-size: 16px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        select:focus, input[type="number"]:focus {
+            border-color: #6e8efb;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #eeff0000, #fe7f2d);
+            margin-top: 10px; /* Margin added to ensure spacing */
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #7dfe2d42, #4dd3f440);
+            transform: scale(1.05);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px; /* Space between fields and buttons */
+        }
+
+        .button-group button {
+            flex: 1;
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .button-group {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            select, input[type="number"] {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <!-- Scientific Animation -->
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#6e8efb;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#a777e3;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <g fill="none" stroke="url(#gradient)" stroke-width="2">
+                <circle cx="200" cy="300" r="150" stroke-dasharray="900" stroke-dashoffset="0" stroke-linecap="round">
+                    <animate attributeName="stroke-dashoffset" from="0" to="900" dur="10s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="600" cy="300" r="200" stroke-dasharray="1300" stroke-dashoffset="0" stroke-linecap="round">
+                    <animate attributeName="stroke-dashoffset" from="0" to="1300" dur="15s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="400" cy="300" r="100" stroke-dasharray="600" stroke-dashoffset="0" stroke-linecap="round">
+                    <animate attributeName="stroke-dashoffset" from="0" to="600" dur="8s" repeatCount="indefinite" />
+                </circle>
+            </g>
+        </svg>
+    </div>
+    <div class="container">
+        <h1>Nutrition Calculator</h1>
+        <form method="post">
+            <div id="food-fields">
+                <!-- Initial input fields can be added here if needed -->
+            </div>
+            <div class="button-group">
+                <button type="button" onclick="addField()">Add Food</button>
+                <button type="submit">Calculate Nutrition</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        let counter = 0;
+
+        function addField() {
+            counter++;
+            const container = document.getElementById('food-fields');
+            const div = document.createElement('div');
+            div.classList.add('form-group');
+            div.innerHTML = `
+                <label for="food${counter}">Select food ${counter}:</label>
+                <select id="food${counter}" name="food${counter}">
+                    <option value="">--Select--</option>
+                    ${foodOptions}
+                </select>
+                <label for="quantity${counter}">Quantity (g):</label>
+                <input type="number" id="quantity${counter}" name="quantity${counter}" step="0.1" min="0">
+                <button type="button" class="remove-button" onclick="removeField(this)">Remove</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeField(button) {
+            button.parentElement.remove();
+        }
+
+        // Pre-generated sorted food options
+        const foodOptions = `{% for item in food_items|sort %}<option value="{{ item }}">{{ item }}</option>{% endfor %}`;
+    </script>
+</body>
+</html>
