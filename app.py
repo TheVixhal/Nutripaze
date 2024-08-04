@@ -54,8 +54,8 @@ def calculate_nutrition(food_list):
         'Phosphorus(mg)': 0,
         'Potassium(mg)': 0,
         'Selenium(mg)': 0,
-        'Zinc(mg)': 0,
-        'Nutrition Density': 0
+        'Zinc(mg)': 0
+        
     }
 
     for food, quantity in food_list:
