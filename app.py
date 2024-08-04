@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 # Define file paths for all CSV files
 file_paths = [
-    "data\FOOD-DATA-GROUP1.csv",
-    "data\FOOD-DATA-GROUP2.csv",
-    "data\FOOD-DATA-GROUP3.csv",
-    "data\FOOD-DATA-GROUP4.csv",
-    "data\FOOD-DATA-GROUP5.csv"
+    "data/FOOD-DATA-GROUP1.csv",
+    "data/FOOD-DATA-GROUP2.csv",
+    "data/FOOD-DATA-GROUP3.csv",
+    "data/FOOD-DATA-GROUP4.csv",
+    "data/FOOD-DATA-GROUP5.csv"
 ]
 
 # Load and combine all CSV files
