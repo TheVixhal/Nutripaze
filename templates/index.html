@@ -5,13 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutrition Calculator</title>
     <style>
+        :root {
+            --background-color: #000;
+            --text-color: #fff;
+            --container-bg: rgba(255, 255, 255, 0);
+            --border-color: rgb(201, 245, 245);
+            --input-bg: #fff;
+            --input-border: #ddd;
+            --button-bg: linear-gradient(135deg, #eeff0000, #fe7f2d);
+            --button-hover-bg: linear-gradient(135deg, #7dfe2d42, #4dd3f440);
+        }
+
+        body.light-mode {
+            --background-color: #fff;
+            --text-color: #000;
+            --container-bg: rgba(0, 0, 0, 0.1);
+            --border-color: rgb(0, 0, 0);
+            --input-bg: #fff;
+            --input-border: #000;
+            --button-bg: linear-gradient(135deg, #fe7f2d, #eeff0000);
+            --button-hover-bg: linear-gradient(135deg, #4dd3f440, #7dfe2d42);
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             overflow: hidden;
-            color: #fff;
-            background: #000;
+            color: var(--text-color);
+            background: var(--background-color);
             position: relative;
             height: 100vh;
             display: flex;
@@ -41,13 +63,13 @@
         .container {
             width: 90%;
             max-width: 800px;
-            background: rgba(255, 255, 255, 0);
+            background: var(--container-bg);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0);
             backdrop-filter: blur(15px);
             z-index: 1;
-            border: 2px solid rgb(201, 245, 245);
+            border: 2px solid var(--border-color);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,7 +91,7 @@
         }
 
         .form-group {
-            background: rgba(255, 255, 255, 0);
+            background: var(--container-bg);
             border-radius: 15px;
             padding: 20px;
             position: relative;
@@ -87,16 +109,16 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #ddd;
+            color: var(--text-color);
         }
 
         select, input[type="number"] {
             padding: 15px;
-            border: 2px solid #ddd;
+            border: 2px solid var(--input-border);
             border-radius: 10px;
             width: calc(100% - 34px);
             font-size: 16px;
-            background: #fff;
+            background: var(--input-bg);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: border-color 0.3s ease;
             box-sizing: border-box;
@@ -111,18 +133,18 @@
             padding: 12px 20px;
             border: none;
             border-radius: 25px;
-            color: #fff;
+            color: var(--text-color);
             font-size: 16px;
             cursor: pointer;
             text-transform: uppercase;
             font-weight: bold;
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #eeff0000, #fe7f2d);
+            background: var(--button-bg);
             margin-top: 10px; /* Margin added to ensure spacing */
         }
 
         button:hover {
-            background: linear-gradient(135deg, #7dfe2d42, #4dd3f440);
+            background: var(--button-hover-bg);
             transform: scale(1.05);
         }
 
@@ -164,6 +186,13 @@
                 padding: 10px 18px;
             }
         }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
@@ -201,6 +230,7 @@
             </div>
         </form>
     </div>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark/Light Mode</button>
     <script>
         let counter = 0;
 
@@ -224,6 +254,10 @@
 
         function removeField(button) {
             button.parentElement.remove();
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
         }
 
         // Pre-generated sorted food options
