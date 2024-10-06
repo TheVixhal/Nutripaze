@@ -20,7 +20,9 @@ df_combined = df_combined.drop_duplicates().reset_index(drop=True)
 # Create a list of food items for the dropdown
 food_items = df_combined['food'].unique().tolist()
 
+# Function to calculate nutrition
 def calculate_nutrition(food_list):
+    # Nutrients dictionary
     total_nutrition = {
         'Caloric Value(kcal)': 0,
         'Fat(g)': 0,
@@ -55,34 +57,37 @@ def calculate_nutrition(food_list):
         'Potassium(mg)': 0,
         'Selenium(mg)': 0,
         'Zinc(mg)': 0
-        
     }
 
     for food, quantity in food_list:
+        # Get the data for the specific food
         food_data = df_combined[df_combined['food'] == food]
         if not food_data.empty:
             food_data = food_data.iloc[0]
+            # Update the total nutrition for each nutrient
             for nutrient in total_nutrition.keys():
                 if nutrient in food_data:
                     total_nutrition[nutrient] += (quantity / 100) * food_data[nutrient]
 
     return total_nutrition
 
-@app.template_filter('enumerate')
-def enumerate_filter(items):
-    return enumerate(items)
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        # Get form data
+        # Process form data
         food_list = []
         for i in range(len(food_items)):
             food_name = request.form.get(f'food{i}')
             quantity = request.form.get(f'quantity{i}')
-            if food_name and quantity:
-                food_list.append((food_name, float(quantity)))
-        
+            
+            # Validate form inputs
+            try:
+                if food_name and quantity:
+                    quantity = float(quantity)
+                    food_list.append((food_name, quantity))
+            except ValueError:
+                continue  # Skip invalid inputs
+
         # Calculate nutrition
         nutrition = calculate_nutrition(food_list)
         return render_template('result.html', nutrition=nutrition)
